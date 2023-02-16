@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Movie } from "../../types"
+import { Movie } from "../types"
 
 interface Props {
     movie: Movie

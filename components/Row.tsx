@@ -1,4 +1,4 @@
-import { Movie } from "../../types"
+import { Movie } from "../types"
 import { HiChevronLeft } from 'react-icons/hi'
 import { HiChevronRight } from 'react-icons/hi'
 import Thumbnail from "./Thumbnail"
