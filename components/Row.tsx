@@ -36,7 +36,7 @@ const Row = ({ title, movies }: Props) => {
                     handleScroll("left")
                 }} />
 
-                <div ref={RowRef} className="flex items-start space-x-2 md:pl-8 md:space-x-[1px] overflow-x-scroll p-5 mb-4">
+                <div ref={RowRef} className="flex items-start space-x-2 md:pl-8 md:space-x-[1px] overflow-x-scroll p-5 mb-4 overflow-y-hidden">
                     {
                         movies.map((movie) => {
                             return <Thumbnail key={movie.id} movie={movie} />

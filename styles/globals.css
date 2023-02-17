@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    body{
+        font-family: Helvetica, sans-serif;
+    }
     body {
         @apply text-white bg-black !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-red-600
     }
