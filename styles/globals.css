@@ -23,6 +23,9 @@
     .bannerBtn{
         @apply flex items-center gap-x-2 rounded px-3 py-1.5 text-sm transition hover:opacity-75 md:text-lg md:py-1
     }
+    .loginInput{
+        @apply w-full h-14 bg-[#333333] pl-4 rounded mt-5 focus:border-b-2 focus:border-orange-500 focus:outline-none focus:bg-[#494949]
+    }
 
     .textShadow{
         text-shadow:  1px 1px 3px rgb(19, 18, 18);;
