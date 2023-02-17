@@ -12,6 +12,7 @@ export interface Element {
 export interface Movie {
     id: number
     name: string
+    adult: boolean
     original_name: string
     title: string
     backdrop_path: string

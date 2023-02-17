@@ -18,11 +18,16 @@
     }
 
     .bannerBtn{
-        @apply flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:text-lg md:py-1
+        @apply flex items-center gap-x-2 rounded px-3 py-1.5 text-sm transition hover:opacity-75 md:text-lg md:py-1
     }
 
     .textShadow{
         text-shadow:  1px 1px 3px rgb(19, 18, 18);;
+    }
+    .customScale{
+        transform: scale(1.4);
+        box-shadow: 1px 1px 2px rgb(39, 38, 38);
+        z-index: 1000;
     }
     .cus_scrollbar {
         height: 135px !important;

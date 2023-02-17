@@ -40,8 +40,8 @@ const Banner = ({ NetflixOriginals }: Props) => {
             <div className="flex space-x-2 mt-5">
                 <button className="bannerBtn text-black bg-white"> <FaPlay className="text-black" /> Play</button>
 
-                <button className="bannerBtn bg-[gray]/70">More Info
-                    <HiOutlineInformationCircle className="h-6 w-6" />
+                <button className="bannerBtn bg-[gray]/70">
+                    <HiOutlineInformationCircle className="h-5 w-5" />More Info
                 </button>
             </div>
         </div>

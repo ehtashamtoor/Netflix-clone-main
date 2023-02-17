@@ -19,7 +19,11 @@ const Header = () => {
                 setisScrolled(false);
             }
         }
-        window.addEventListener('scroll', handleScroll)
+        if (window.scrollY > 0) {
+            window.addEventListener('scroll', handleScroll)
+        }else{
+            window.addEventListener('scroll', handleScroll)
+        }
 
         return () => {
             window.removeEventListener("scroll", handleScroll)
@@ -27,9 +31,9 @@ const Header = () => {
     }, [])
 
     return (
-        <header className={`${isScrolled && 'bg-black'} z-50`}>
-            <div className="flex space-x-5 md:space-x-12 p-1 items-center">
-                <Image src="https://rb.gy/ulxxee" width={100} height={100} className="cursor-pointer object-contain" alt="Netflix logo" />
+        <header className={`${isScrolled && 'bg-black'} z-50 text-sm`}>
+            <div className="flex space-x-5 md:space-x-12 p-0 items-center">
+                <Image src="https://rb.gy/ulxxee" width={80} height={90} className="cursor-pointer object-contain" alt="Netflix logo" />
 
                 <div className="md:hidden">
                     Browse

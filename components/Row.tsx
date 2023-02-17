@@ -28,15 +28,15 @@ const Row = ({ title, movies }: Props) => {
         }
     }
     return (
-        <div className="h-40 space-x-4 mt-10">
-            <h1 className="text-sm md:text-lg textShadow cursor-pointer transition duration-200 text-[#e4e3e3] hover:text-white mb-5 ">{title}</h1>
+        <div className="h-40 space-x-4 mt-5">
+            <h1 className="text-sm md:text-lg textShadow cursor-pointer transition duration-200 text-[#e4e3e3] hover:text-white mb-2 ">{title}</h1>
 
-            <div className="group relative">
-                <HiChevronLeft className="absolute top-[30px] md:top-[40px] left-3 z-40 m-auto h-[2.4rem] w-[2.5rem] transition opacity-0 hover:scale-125 group-hover:opacity-100 cursor-pointer" onClick={() => {
+            <div className="group relative flex md:p-0 md:m-0">
+                <HiChevronLeft className="absolute top-[30px] md:top-[40px] left-3 z-40  h-[2.4rem] w-[2.5rem] transition opacity-0 hover:scale-125 group-hover:opacity-100 cursor-pointer" onClick={() => {
                     handleScroll("left")
                 }} />
 
-                <div ref={RowRef} className="flex items-start space-x-1 md:space-x-[1px] md:pl-1 overflow-x-scroll mb-4">
+                <div ref={RowRef} className="flex items-start space-x-2 md:pl-8 md:space-x-[1px] overflow-x-scroll p-5 mb-4">
                     {
                         movies.map((movie) => {
                             return <Thumbnail key={movie.id} movie={movie} />
@@ -44,7 +44,7 @@ const Row = ({ title, movies }: Props) => {
                     }
                 </div>
 
-                <HiChevronRight className="absolute top-[30px] md:top-[40px] right-3 z-40 m-auto h-[2.5rem] w-[2.5rem] transition opacity-0 hover:scale-125 group-hover:opacity-100 cursor-pointer" onClick={() => {
+                <HiChevronRight className="absolute top-[30px] md:top-[40px] right-3 z-40 h-[2.5rem] w-[2.5rem] transition opacity-0 hover:scale-125 group-hover:opacity-100 cursor-pointer" onClick={() => {
                     handleScroll("right")
                 }} />
             </div>
