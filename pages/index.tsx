@@ -1,27 +1,39 @@
+import Head from "next/head";
+import Banner from "../components/Banner";
+import Header from "../components/Header";
 
-import Head from 'next/head'
-import Image from 'next/image'
-import Banner from '../components/Banner'
-import Header from '../components/Header'
+import requests from "../utils/requests";
+import { Movie } from "../types";
+import Row from "../components/Row";
+import { ModalState } from "../Atoms/ModalAtom";
+import { useRecoilValue } from "recoil";
+import Modal from "../components/Modal";
 
-import requests from '../utils/requests'
-import { Movie } from '../types'
-import Row from '../components/Row'
-
-// Interface props for the movie types 
+// Interface props for the movie types
 interface Props {
-  NetflixOriginals: Movie[],
-  TrendingNow: Movie[],
-  TopRated: Movie[],
-  ActionMovies: Movie[],
-  ComedyMovies: Movie[],
-  HorrorMovies: Movie[],
-  RomanceMovies: Movie[],
-  Documentaries: Movie[],
+  NetflixOriginals: Movie[];
+  TrendingNow: Movie[];
+  TopRated: Movie[];
+  ActionMovies: Movie[];
+  ComedyMovies: Movie[];
+  HorrorMovies: Movie[];
+  RomanceMovies: Movie[];
+  Documentaries: Movie[];
 }
 
-const Home = ({ NetflixOriginals, TrendingNow, TopRated, ActionMovies, ComedyMovies, HorrorMovies, RomanceMovies, Documentaries }: Props) => {
-  // console.log(TopRated)
+const Home = ({
+  NetflixOriginals,
+  TrendingNow,
+  TopRated,
+  ActionMovies,
+  ComedyMovies,
+  HorrorMovies,
+  RomanceMovies,
+  Documentaries,
+}: Props) => {
+  
+  const showModal = useRecoilValue(ModalState);
+
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[120vh]">
       <Head>
@@ -31,7 +43,7 @@ const Home = ({ NetflixOriginals, TrendingNow, TopRated, ActionMovies, ComedyMov
 
       {/* Header */}
       <Header />
-      <main className='relative pl-4 space-x-2 '>
+      <main className="relative pl-4 space-x-2 ">
         <Banner NetflixOriginals={NetflixOriginals} />
         <section>
           <Row title="Trending Now" movies={TrendingNow} />
@@ -46,12 +58,13 @@ const Home = ({ NetflixOriginals, TrendingNow, TopRated, ActionMovies, ComedyMov
         </section>
 
         {/* Model */}
+        {showModal && <Modal />}
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 export const getServerSideProps = async () => {
   const [
@@ -72,7 +85,7 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchHorrorMovies).then((res) => res.json()),
     fetch(requests.fetchRomanceMovies).then((res) => res.json()),
     fetch(requests.fetchDocumentaries).then((res) => res.json()),
-  ])
+  ]);
   return {
     props: {
       NetflixOriginals: NetflixOriginals.results,
@@ -83,6 +96,6 @@ export const getServerSideProps = async () => {
       HorrorMovies: HorrorMovies.results,
       RomanceMovies: RomanceMovies.results,
       Documentaries: Documentaries.results,
-    }
-  }
-}
+    },
+  };
+};

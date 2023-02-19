@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import useAuth from "../context/myAuthHook";
 //icons
 import { HiEye } from "react-icons/hi";
 
@@ -13,19 +14,24 @@ interface Inputs {
 }
 
 const Login = () => {
-  const [login, setLogin] = useState(false);
-  let showPass = useRef<HTMLInputElement | null>(null);
-
+  const { signIn, signUp } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    watch,
+    formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
-    console.log(login);
+  const [login, setLogin] = useState(false);
+  const [type, settype] = useState("password");
+  const [eye, seteye] = useState("hidden");
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data);
     if (login) {
+      await signIn(data.email, data.password);
     } else {
+      await signUp(data.email, data.password);
     }
   };
 
@@ -58,7 +64,7 @@ const Login = () => {
         </svg>
       </div>
 
-      <div className="w-full mt-20 p-10 md:w-5/12 h-auto md:p-14 bg-black/80 absolute md:top-20 md:left-64 lg:left-96 lg:w-4/12">
+      <div className="w-full mt-20 p-10 md:w-5/12 h-auto md:p-14 bg-black/80 absolute md:top-20 md:left-64 lg:left-[33vw] lg:w-4/12">
         <h1 className="text-3xl font-bold text-white text-left mb-5">
           Sign In
         </h1>
@@ -67,42 +73,44 @@ const Login = () => {
             type="email"
             placeholder="Email"
             className={`loginInput`}
-            {...(register("email"), { required: true })}
+            {...register("email", { required: true })}
           />
-          {errors.email && (
-            <span className="text-orange-600">Your email is required</span>
+          {errors.email ? (
+            <span className="text-orange-600">Please enter a valid email</span>
+          ) : (
+            <span className="invisible">dummy</span>
           )}
 
-          <label htmlFor="" className="relative">
+          <label className="relative">
             <input
-              ref={showPass}
-              type="password"
+              type={type}
+              {...register("password", { required: true })}
               placeholder="Password"
               className={`loginInput`}
-              {...(register("password"), { required: true })}
+              onFocus={() => {
+                seteye("");
+              }}
             />
-            {errors.password && (
-              <span className="text-orange-600">Please enter password</span>
-            )}
+
             <span className="absolute top-[-1px] right-2">
               <HiEye
-                className="text-gray-400 text-2xl cursor-pointer"
+                className={`text-gray-400 text-2xl cursor-pointer zin ${eye}`}
                 onClick={() => {
-                  if (showPass && showPass.current != null) {
-                    if (showPass.current.type === "password") {
-                      showPass.current.type = "text";
-                    } else {
-                      showPass.current.type = "password";
-                    }
-                  }
+                  type === "password" ? settype("text") : settype("password");
                 }}
               />
             </span>
           </label>
+          {errors.password ? (
+            <span className="text-orange-600">Password is required</span>
+          ) : (
+            <span className="invisible">dummy</span>
+          )}
 
           <button
             onClick={() => {
               setLogin(true);
+              console.log("signin");
             }}
             className="bg-[#E50914] w-full h-[50px] rounded mt-5"
           >
@@ -116,6 +124,7 @@ const Login = () => {
                 type="submit"
                 onClick={() => {
                   setLogin(false);
+                  console.log("sign Up");
                 }}
                 className="text-white hover:underline"
               >
