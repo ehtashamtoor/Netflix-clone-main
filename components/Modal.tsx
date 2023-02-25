@@ -32,14 +32,12 @@ const Modal = () => {
   useEffect(() => {
     if (!movie) return;
 
-    setpopularity((Math.floor(movie.popularity) / 2000) * 100);
+    setpopularity(movie.vote_average * 10);
 
     const fetchVideos = async () => {
       let data = await fetch(
-        `https://api.themoviedb.org/3/${
-          movie?.media_type === "tv" ? "tv" : "movie"
-        }/${movie?.id}?api_key=${
-          process.env.NEXT_PUBLIC_API_KEY
+        `https://api.themoviedb.org/3/${movie?.media_type === "tv" ? "tv" : "movie"
+        }/${movie?.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY
         }&language=en-US&append_to_response=videos`
       ).then((res) => res.json());
       console.log(data);
@@ -154,7 +152,7 @@ const Modal = () => {
                 <div className="bg-[#292929] pl-8 pt-4 relative z-[30]">
                   <div className="flex space-x-2">
                     <span className="text-green-500 font-semibold">
-                      {Math.ceil(popularity) } % match
+                      {Math.ceil(popularity)} % match
                     </span>
                     <span>{movie?.release_date}</span>
                     <span className="flex items-center px-1 justify-center border-2 text-[10px]">
