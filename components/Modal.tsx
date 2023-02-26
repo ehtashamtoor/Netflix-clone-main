@@ -1,9 +1,9 @@
-import { ModalState, MovieState } from "../Atoms/ModalAtom";
-import { useRecoilState } from "recoil";
+import { ModalState, MovieState, MyMovies } from "../Atoms/ModalAtom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import { useState, useEffect, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Element, Genre } from "../types";
+import { Element, Genre, Movie } from "../types";
 import ReactPlayer from "react-player";
 
 // icons
@@ -18,6 +18,8 @@ import { FiThumbsUp } from "react-icons/fi";
 const Modal = () => {
   const [showModal, setshowModal] = useRecoilState(ModalState);
   const [movie, setMovie] = useRecoilState(MovieState);
+  let [MyList, setMyList] = useRecoilState(MyMovies);
+  // let setMyMovies = useSetRecoilState(MyMovies);
 
   const [Trailer, setTrailer] = useState("");
   const [Genres, setGenres] = useState<Genre[]>();
@@ -28,6 +30,16 @@ const Modal = () => {
   const handleClose = () => {
     setshowModal(false);
   };
+
+  const AddMovieToList = () => {
+    if (movie && !MyList?.includes(movie)) {
+      movie && setMyList((addedMovies) => addedMovies ? [...addedMovies, movie] : [movie])
+    } else {
+      console.log("movie ha pehle e")
+    }
+
+    console.log(MyList)
+  }
 
   useEffect(() => {
     if (!movie) return;
@@ -40,7 +52,7 @@ const Modal = () => {
         }/${movie?.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY
         }&language=en-US&append_to_response=videos`
       ).then((res) => res.json());
-      console.log(data);
+      // console.log(data);
 
       if (data?.videos) {
         let index = data.videos.results.findIndex((videotype: Element) => {
@@ -92,7 +104,7 @@ const Modal = () => {
 
                 <div className="relative pt-[56.25%]">
                   <ReactPlayer
-                    url={`https://www.youtube.com/watch?v=${Trailer}`}
+                    url={`https://www.youtube.com/watch?v=${Trailer}` || "No video found"}
                     width="100%"
                     height="100%"
                     style={{
@@ -132,7 +144,7 @@ const Modal = () => {
                         )}
                       </button>
 
-                      <button className="text-lg p-2 modelBtn">
+                      <button className="text-lg p-2 modelBtn" onClick={() => { AddMovieToList() }}>
                         <HiPlus className="text-white" />
                       </button>
                       <button className="text-lg p-2 modelBtn">

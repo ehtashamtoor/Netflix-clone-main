@@ -9,7 +9,12 @@ export const ModalState = atom({
 })
 
 
-export const MovieState = atom<Movie | DocumentData | null>({
+export const MovieState = atom<Movie | null>({
     key: "MovieState",
+    default: null
+})
+
+export const MyMovies = atom<Movie[] | null>({
+    key: "MyMovies",
     default: null
 })

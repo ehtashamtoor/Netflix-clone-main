@@ -9,6 +9,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@headlessui/react": "^1.7.11",
+    "@hookform/resolvers": "^2.9.11",
     "firebase": "^9.17.1",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
@@ -18,7 +19,8 @@
     "react-hook-form": "^7.43.1",
     "react-icons": "^4.7.1",
     "react-player": "^2.11.2",
-    "recoil": "^0.7.6"
+    "recoil": "^0.7.6",
+    "yup": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "18.11.3",

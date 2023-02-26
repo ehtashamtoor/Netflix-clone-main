@@ -3,10 +3,14 @@ import { useState, useRef } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { RegisterSchema } from '../Schemas';
 
 import useAuth from "../context/myAuthHook";
 //icons
 import { HiEye } from "react-icons/hi";
+import { ObjectSchema, AnyObject } from "yup";
 
 interface Inputs {
   email: string;
@@ -15,12 +19,9 @@ interface Inputs {
 
 const Login = () => {
   const { signIn, signUp } = useAuth();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+    resolver: yupResolver(RegisterSchema),
+  });
 
   const [login, setLogin] = useState(false);
   const [type, settype] = useState("password");
@@ -71,20 +72,18 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             type="email"
+            {...register("email")}
+            name="email"
             placeholder="Email"
             className={`loginInput`}
-            {...register("email", { required: true })}
           />
-          {errors.email ? (
-            <span className="text-orange-600">Please enter a valid email</span>
-          ) : (
-            <span className="invisible">dummy</span>
-          )}
+          {errors.email && <span className={`text-red-600`}>{errors.email.message}</span>}
 
           <label className="relative">
             <input
               type={type}
-              {...register("password", { required: true })}
+              {...register("password")}
+              name="password"
               placeholder="Password"
               className={`loginInput`}
               onFocus={() => {
@@ -101,11 +100,7 @@ const Login = () => {
               />
             </span>
           </label>
-          {errors.password ? (
-            <span className="text-orange-600">Password is required</span>
-          ) : (
-            <span className="invisible">dummy</span>
-          )}
+          {errors.password && <span className={`text-red-600`}>{errors.password.message}</span>}
 
           <button
             onClick={() => {
